@@ -1,7 +1,13 @@
 import cv2
 import time
+import os
 
 CAPTURES_FILE_PATH = "/home/pi/Downloads/eye_tracking_device/data_collection/captures/"
+
+# make captures folder if not exists
+if not os.path.exists(CAPTURES_FILE_PATH):
+    os.makedirs(CAPTURES_FILE_PATH)
+
 cur_frames = 0
 
 # start video
