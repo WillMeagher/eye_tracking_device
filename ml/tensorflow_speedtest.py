@@ -36,8 +36,8 @@ def main():
     # start video
     cap = cv2.VideoCapture(0)
 
-    cap.set(3, 640)
-    cap.set(4, 360)
+    cap.set(3, 128)
+    cap.set(4, 72)
 
     start = time.time()
 
@@ -82,12 +82,12 @@ def prepare_img(img):
 
     img = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
 
-    img = img[205:280, 80:-80]
-    left = img[:, :150]
-    right = img[:, -150:]
+    img = img[41:56, 16:-16]
+    left = img[:, :30]
+    right = img[:, -30:]
     eyes = np.concatenate((left, right), axis=1)
 
-    eyes = cv2.resize(eyes, (0,0), fx=0.2, fy=0.2)
+    # eyes = cv2.resize(eyes, (0,0), fx=0.2, fy=0.2)
 
     eyes = eyes / 255.0
 
