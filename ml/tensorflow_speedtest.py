@@ -116,7 +116,7 @@ def predict_eye(eye):
     
     interpreter_eye.invoke()
 
-    output_data = interpreter_gaze.get_tensor(output_details_eye[0]['index'])
+    output_data = interpreter_eye.get_tensor(output_details_eye[0]['index'])
 
     return output_data
 
