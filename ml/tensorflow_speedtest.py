@@ -95,7 +95,7 @@ def prepare_img(img):
 
 
 def get_eyes(img):
-    left = img[:, :img.shpae[1] // 2]
+    left = img[:, :img.shape[1] // 2]
     right = img[:, img.shape[1] // 2:]
 
     return left, right
