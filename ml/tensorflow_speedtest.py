@@ -102,7 +102,7 @@ def get_eyes(img):
 
 
 def process_prediction_eye(prediction):
-    prediction = prediction[0]
+    prediction = prediction[0][0]
 
     prediction = round(prediction)
 
