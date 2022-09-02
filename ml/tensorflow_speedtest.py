@@ -18,7 +18,7 @@ def main():
 
     MODEL_PATH = '/home/pi/Downloads/eye_tracking_device/ml/models/'
     MODEL_NAME_GAZE = 'model_3.38.tflite'
-    MODEL_NAME_EYE = '1661920883270_0.00000_model.tflite'
+    MODEL_NAME_EYE = '1662069423699_0.00137_model.tflite'
     
     interpreter_gaze = Interpreter(model_path=MODEL_PATH + MODEL_NAME_GAZE)
     interpreter_gaze.allocate_tensors()
