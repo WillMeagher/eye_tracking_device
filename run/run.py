@@ -14,8 +14,8 @@ DISTANCE_TO_SCREEN_INCHES = 30
 def main():
     cam = camera.Camera()
 
-    gaze_model = gaze_estimation.GazeEstimator(config["models_path"] + config["gaze_estimation_model"])
-    eye_model = eye_status.EyeStatusEstimator(config["models_path"] + config["eye_status_model"])
+    gaze_model = gaze_estimation.GazeEstimator(config["models_path"] + config["gaze_estimation_models"])
+    eye_model = eye_status.EyeStatusEstimator(config["models_path"] + config["eye_status_models"])
 
     speed_tester = speed_test.SpeedTest()
 
@@ -34,7 +34,7 @@ def main():
 
         else:
             # print("eye/s closed")
-            a = 1
+            pass
 
         speed_tester.loop()
 
