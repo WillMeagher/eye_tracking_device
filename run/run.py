@@ -4,12 +4,15 @@ import math
 from usb import mouse
 from camera import camera
 from ml import gaze_estimation, eye_status
-from tools import speed_test, input_check
+from tools import speed_test, input_check, utils
 from config import *
 
 SCREEN_WIDTH_INCHES = 23.375
 SCREEN_HEIGHT_INCHES = 13.25
+INVERSE_SCREEN_WIDTH_INCHES = 0.04278
+INVERSE_SCREEN_HEIGHT_INCHES = 0.07547
 DISTANCE_TO_SCREEN_INCHES = 30
+PI_OVER_180 = 0.01745
 
 def main():
     cam = camera.Camera()
@@ -27,11 +30,11 @@ def main():
 
         if eye_status_result[0] == 1 and eye_status_result[1] == 1:
             gaze_estimation_result = gaze_model.run(frame)
-
-            x, y = get_pos(gaze_estimation_result)
-            # mouse.move(x, y)
             # print("x=%6.2f" %gaze_estimation_result[0], "y=%6.2f" %gaze_estimation_result[1])
 
+            x, y = get_pos(gaze_estimation_result)
+            print("x=%6.2f" %x, "y=%6.2f" %y)
+            # mouse.move(x, y)
         else:
             # print("eye/s closed")
             pass
@@ -63,11 +66,17 @@ def prepare_frame(img):
 
 
 def get_pos(angles):
-    x_mid = DISTANCE_TO_SCREEN_INCHES * math.tan(angles[0])
-    y_mid = DISTANCE_TO_SCREEN_INCHES * math.tan(angles[1])
+    np.array(angles)
+    angles = angles * PI_OVER_180
 
-    x = SCREEN_WIDTH_INCHES / 2 + x_mid
-    y = SCREEN_HEIGHT_INCHES / 2 + y_mid
+    from_middle_x = DISTANCE_TO_SCREEN_INCHES * utils.fast_tan(angles[0])
+    from_middle_y = DISTANCE_TO_SCREEN_INCHES * utils.fast_tan(angles[1])
+
+    x = from_middle_x * INVERSE_SCREEN_WIDTH_INCHES + .5
+    y = from_middle_y * INVERSE_SCREEN_HEIGHT_INCHES + .5
+
+    x = np.clip(x, 0, 1)
+    y = np.clip(y, 0, 1)
 
     return x, y
 
